@@ -1,0 +1,26 @@
+<sdf version='1.6'>
+  <world name='default'>
+    <include>
+      <name>drone</name>
+      <uri>model://drone</uri>
+      <pose> -10 10 1 0 0 0</pose>
+    </include>
+
+    <include>
+      <name>apartment</name>
+      <uri>model://apartment1</uri>
+      <pose>-0 0 0 0 0 0</pose>
+    </include>
+
+    <include>
+      <uri>model://ground_plane</uri>
+    </include>
+
+
+    <physics type='ode'>
+      <max_step_size>0.005</max_step_size>
+      <real_time_factor>1</real_time_factor>
+      <real_time_update_rate>200</real_time_update_rate>
+    </physics>
+  </world>
+</sdf>

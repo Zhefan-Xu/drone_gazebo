@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<launch>
+  <!-- Use simulation time (prevention for problems with TF frames?) -->   
+  <param name="/use_sim_time" type="bool" value="true"/>
+
+  <!-- set environemnt variables -->
+  <!-- <env name="GAZEBO_MODEL_PATH" value="$(find drone_gazebo)/models:$GAZEBO_MODEL_PATH"/> -->
+  <!-- <env name="GAZEBO_RESOURCE_PATH" value="$(find drone_gazebo):$GAZEBO_RESOURCE_PATH"/> -->
+
+  <!-- these are the arguments you can pass this launch file, for example paused:=true -->
+  <arg name="use_sim_time" default="true"/>
+  <arg name="debug" default="false"/>
+  <arg name="gui" default="true"/>
+  <arg name="headless" default="false"/>
+  <arg name="paused" default="false"/>
+  <arg name="recording" default="false"/>
+  <arg name="verbose" default="false"/>
+
+
+
+  <!-- load gazebo simulation world -->
+  <arg name="world_name" default="$(find drone_gazebo)/worlds/tunnel.world"/>
+
+  <!-- start gzserver and load the map -->
+  <node name="gazebo" pkg="drone_gazebo" type="start_gzserver" args="$(arg world_name)" respawn="false"/>
+
+  <!-- start gzclient -->
+  <node name="gui" pkg="drone_gazebo" type="start_gui" args="$(arg world_name)" respawn="false"/>
+
+  <!-- Spawn simulated quadrotor uav -->
+<!--   <node name="spawn_drone" pkg="sjtu_drone" type="spawn_drone" respawn="false"/> -->
+
+   <!-- start keyboard control ui -->
+<!--    <node name="drone_keyboard" pkg="sjtu_drone" type="drone_keyboard" respawn="false"/> -->
+  <node name="tfbc" pkg="drone_gazebo" type="transform_broadcaster" />
+
+  <node pkg="octomap_server" type="octomap_server_node" name="octomap_server">
+    <param name="resolution" value="0.1" />
+    
+    <!-- fixed map frame (set to 'map' if SLAM or localization running!) -->
+    <param name="frame_id" type="string" value="world" />
+    
+    <!-- maximum range to integrate (speedup!) -->
+    <param name="sensor_model/max_range" value="5.0" />
+    
+    <!-- data source to integrate (PointCloud2) -->
+    <remap from="cloud_in" to="/camera/depth/points" />
+  
+  </node>
+
+  <!-- start keyboard control ui -->
+  <node name="drone_keyboard" pkg="drone_gazebo" type="keyboard_control" respawn="false"/>
+
+  <node name="rviz" pkg="rviz" type="rviz" />
+
+  <!-- Launch navigation server -->
+  <node pkg="move_quadcopter" type="navigation_server" name="navigation_server" output="screen" />
+
+  <!-- Launch navigation client -->
+  <node pkg="move_quadcopter" type="navigation_client" name="navigation_client" output="screen" />
+
+
+
+</launch>

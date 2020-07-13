@@ -1,0 +1,28 @@
+<launch>
+  <!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+
+    <arg name="world_name" value="$(find drone_gazebo)/worlds/willowgarage.world"/>
+    <!-- more default parameters can be changed here -->
+  </include>
+
+  <node pkg="octomap_server" type="octomap_server_node" name="octomap_server">
+    <param name="resolution" value="0.2" />
+    
+    <!-- fixed map frame (set to 'map' if SLAM or localization running!) -->
+    <param name="frame_id" type="string" value="world" />
+    
+    <!-- maximum range to integrate (speedup!) -->
+    <param name="sensor_model/max_range" value="5.0" />
+    
+    <!-- data source to integrate (PointCloud2) -->
+    <remap from="cloud_in" to="/camera/depth/points" />
+  
+  </node>
+
+  <node name="tfbc" pkg="drone_gazebo" type="transform_broadcaster"/> 
+
+
+  <node name="rviz" pkg="rviz" type="rviz" />
+
+</launch>
