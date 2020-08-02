@@ -37,15 +37,15 @@ def callback(all_states):
 	cx, cy, cz, crx, cry, crz, crw = current_pose.position.x, current_pose.position.y, current_pose.position.z,\
 			 current_pose.orientation.x, current_pose.orientation.y, current_pose.orientation.z, current_pose.orientation.w
 	(croll, cpitch, cyaw) = euler_from_quaternion([crx, cry, crz, crw])
-	if (target_model_name[0]=="p"):
-		if (cyaw > -math.pi/2):
-			cyaw -= math.pi/2
-		else:
-			cyaw = (2*math.pi + (cyaw-math.pi/2))
+	# if (target_model_name[0]=="p"):
+	# 	if (cyaw > -math.pi/2):
+	# 		cyaw -= math.pi/2
+	# 	else:
+	# 		cyaw = (2*math.pi + (cyaw-math.pi/2))
 
 	if (waypoints_idx == 0 and first_time):
 		if (target_model_name[0]=="p"):
-			current_pose.position.x, current_pose.position.y, current_pose.position.z = waypoints[0][0], waypoints[0][1], 0.1
+			current_pose.position.x, current_pose.position.y, current_pose.position.z = waypoints[0][0], waypoints[0][1], 0.01
 		else:
 			current_pose.position.x, current_pose.position.y = waypoints[0][0], waypoints[0][1]
 		current_pose.orientation.x, current_pose.orientation.y, current_pose.orientation.z, current_pose.orientation.w = 0, 0, 0, 1
@@ -64,20 +64,35 @@ def callback(all_states):
 	goal_waypoint = waypoints[waypoints_idx]
 	gx, gy = goal_waypoint[0], goal_waypoint[1]
 	dx, dy = gx-cx, gy-cy
+
 	gyaw = math.atan2(dy, dx)
+	gyaw += math.pi/2
+	# cyaw -=  math.pi/2
 	dyaw = gyaw - cyaw
 	angular_velocity_direction = (dyaw/(abs(dyaw)+1e-9))
+	# if (gyaw > -math.pi/2):
+	# 	gyaw -= math.pi/2
+	# else:
+	# 	gyaw = (2*math.pi + (gyaw-math.pi/2))
+
 	if (abs(dyaw) > math.pi):
 		dyaw = (2*math.pi - abs(dyaw)) * -angular_velocity_direction
 		angular_velocity_direction = -angular_velocity_direction
 
 	complete_rotation = abs(dyaw) < 0.15
 	delta = math.sqrt((dx**2 + dy**2))
+	# complete_motion = delta < 0.1
 	complete_motion = delta < 0.4
-	rospy.loginfo("current pose/dyaw: %s, %s, %s, %s, %s", cx, cy, cz, cyaw*180/math.pi, dyaw*180/math.pi)
+	# rospy.loginfo("current pose/dyaw: %s, %s, %s, %s, %s", cx, cy, cz, cyaw*180/math.pi, dyaw*180/math.pi)
+	# rospy.loginfo("goal: %s, %s, %s, %s", gx, gy, gyaw, cyaw)
 
 	distance_to_drone = math.sqrt((drone_x-cx)**2 + (drone_y-cy)**2)
-	cos_angle = math.cos(cyaw) * (drone_x-cx) + math.sin(cyaw) * (drone_y-cy)
+	drone_dx_norm = (drone_x-cx)/((drone_x-cx)**2+(drone_y-cy)**2)**0.5
+	drone_dy_norm = (drone_y-cy)/((drone_x-cx)**2+(drone_y-cy)**2)**0.5
+	cos_angle = math.cos(cyaw) * drone_dx_norm + math.sin(cyaw) * drone_dy_norm
+	angle = math.acos(cos_angle)
+	rospy.loginfo(angle)
+	face_condition = angle < 0 and angle > -math.pi
 	if (distance_to_drone < 1 and cos_angle >0 and first_time_meet==True):
 		target_pose = current_pose
 		target_twist.linear.x = 0
@@ -101,7 +116,7 @@ def callback(all_states):
 		first_time_meet = False
 		return
 
-	first_time_meet = True
+	
 
 	if (not complete_rotation):
 		# rotate
@@ -143,9 +158,12 @@ def callback(all_states):
 					break
 				rospy.Rate(10).sleep()
 		return
-
+	# rospy.loginfo(waypoints_idx)
+	# rospy.loginfo(cyaw)
+	# rospy.loginfo(gyaw)
+	first_time_meet = True
 	target_pose = Pose()
-	target_pose.position.x, target_pose.position.y, target_pose.position.z = gx, gy, 0.1
+	target_pose.position.x, target_pose.position.y, target_pose.position.z = gx, gy, 0.01
 	q = quaternion_from_euler(0, 0, gyaw)
 	target_pose.orientation.x, target_pose.orientation.y, target_pose.orientation.z, target_pose.orientation.w = q[0], q[1], q[2], q[3]
 	target_state.pose = target_pose
