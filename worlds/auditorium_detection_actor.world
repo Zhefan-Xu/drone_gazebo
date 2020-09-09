@@ -186,7 +186,7 @@
       </animation>
 
       <plugin name="actor1_plugin" filename="libActorPlugin.so">
-        <target>0.1,-3.7 1.2138</target>
+        <target>0.1 -3.7 1.2138</target>
         <target_weight>1.15</target_weight>
         <obstacle_weight>1.8</obstacle_weight>
         <animation_factor>5.1</animation_factor>
@@ -209,7 +209,7 @@
         <interpolate_x>true</interpolate_x>
       </animation>
       <plugin name="actor2_plugin" filename="libActorPlugin.so">
-        <target>4.7,-5.36 1.24</target>
+        <target>4.7 -5.36 1.24</target>
         <target_weight>1.15</target_weight>
         <obstacle_weight>1.8</obstacle_weight>
         <animation_factor>5.1</animation_factor>
@@ -232,7 +232,7 @@
         <interpolate_x>true</interpolate_x>
       </animation>
       <plugin name="actor3_plugin" filename="libActorPlugin.so">
-        <target>1.35,2.25 1.24</target>
+        <target>1.35 2.25 1.24</target>
         <target_weight>1.15</target_weight>
         <obstacle_weight>1.8</obstacle_weight>
         <animation_factor>5.1</animation_factor>

@@ -1,8 +1,5 @@
 <sdf version='1.6'>
   <world name='default'>
-    <include>
-      <uri>model://ground_plane</uri>
-    </include>
     <model name='drone'>
       <plugin name='p3d_base_controller' filename='libgazebo_ros_p3d.so'>
         <alwaysOn>true</alwaysOn>
@@ -14,7 +11,7 @@
         <xyzOffsets>0 0 0</xyzOffsets>
         <rpyOffsets>0 0 0</rpyOffsets>
       </plugin>
-      <pose frame=''>11 0 1 0 -0 0</pose>
+      <pose frame=''>15.5 4.5 1.7 0 -0 0</pose>
       <link name='base_link'>
         <inertial>
           <mass>1.477</mass>
@@ -40,10 +37,11 @@
           </geometry>
         </visual>
         <collision name='collision'>
+          <pose frame=''>0 0 10 0 -0 0</pose>
           <geometry>
             <mesh>
               <uri>model://drone/meshes/quadrotor_4.dae</uri>
-              <scale>0.1 0.1 0.1</scale>
+              <scale>1 1 1</scale>
             </mesh>
           </geometry>
           <max_contacts>10</max_contacts>
@@ -73,11 +71,11 @@
               <near>0.02</near>
               <far>100</far>
             </clip>
-            <noise>
+<!--             <noise>
               <type>gaussian</type>
               <mean>0</mean>
               <stddev>0.005</stddev>
-            </noise>
+            </noise> -->
           </camera>
           <pose frame=''>0.2 0 0 0 -0 0</pose>
           <always_on>1</always_on>
@@ -107,52 +105,13 @@
             <focalLength>0</focalLength>
             <hackBaseline>0</hackBaseline>
             <min_depth>0.0001</min_depth>
-            <max_depth>3.0</max_depth>
+            <max_depth>7.0</max_depth>
           </plugin>
         </sensor>
         <self_collide>0</self_collide>
         <enable_wind>0</enable_wind>
         <kinematic>0</kinematic>
       </link>
-    </model>
-    <model name='maze'>
-      <static>1</static>
-      <link name='link'>
-        <collision name='collision'>
-          <geometry>
-            <mesh>
-              <uri>model://maze/meshes/model_maze.dae</uri>
-              <scale>0 0 0</scale>
-            </mesh>
-          </geometry>
-          <max_contacts>10</max_contacts>
-          <surface>
-            <contact>
-              <ode/>
-            </contact>
-            <bounce/>
-            <friction>
-              <torsional>
-                <ode/>
-              </torsional>
-              <ode/>
-            </friction>
-          </surface>
-        </collision>
-        <visual name='visual'>
-          <geometry>
-            <mesh>
-              <uri>model://maze/meshes/model_maze.dae</uri>
-              <scale>0.1 0.1 0.1</scale>
-            </mesh>
-          </geometry>
-          <material/>
-        </visual>
-        <self_collide>0</self_collide>
-        <kinematic>0</kinematic>
-        <gravity>1</gravity>
-      </link>
-      <pose frame=''>-0 0 0 0 -0 0</pose>
     </model>
     <light name='sun' type='directional'>
       <cast_shadows>1</cast_shadows>
@@ -165,8 +124,56 @@
         <linear>0.01</linear>
         <quadratic>0.001</quadratic>
       </attenuation>
-      <direction>0 0.5 -0.9</direction>
+      <direction>-0.5 0.1 -0.9</direction>
     </light>
+    <model name='ground_plane'>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>100 100</size>
+            </plane>
+          </geometry>
+          <surface>
+            <friction>
+              <ode>
+                <mu>100</mu>
+                <mu2>50</mu2>
+              </ode>
+              <torsional>
+                <ode/>
+              </torsional>
+            </friction>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='visual'>
+          <cast_shadows>0</cast_shadows>
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>100 100</size>
+            </plane>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Grey</name>
+            </script>
+          </material>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+        <gravity>1</gravity>
+      </link>
+    </model>
     <gravity>0 0 -9.8</gravity>
     <magnetic_field>6e-06 2.3e-05 -4.2e-05</magnetic_field>
     <atmosphere type='adiabatic'/>
@@ -180,6 +187,7 @@
       <background>0.7 0.7 0.7 1</background>
       <shadows>1</shadows>
     </scene>
+    <wind/>
     <spherical_coordinates>
       <surface_model>EARTH_WGS84</surface_model>
       <latitude_deg>0</latitude_deg>
@@ -187,6 +195,166 @@
       <elevation>0</elevation>
       <heading_deg>0</heading_deg>
     </spherical_coordinates>
+    <model name='Auditorium'>
+      <static>1</static>
+      <link name='auditorium'>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>1 1 1</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode>
+                <mu>2</mu>
+                <mu2>2</mu2>
+              </ode>
+              <torsional>
+                <ode/>
+              </torsional>
+            </friction>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <inertial>
+          <mass>1000</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <visual name='visual'>
+          <pose frame=''>0 0 0 1.5707 -0 0</pose>
+          <geometry>
+            <mesh>
+              <uri>model://Auditorium/meshes/area2_auditorium1_noceiling.dae</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+        <gravity>1</gravity>
+      </link>
+      <pose frame=''>-1.89939 2.5204 0 0 -0 0</pose>
+    </model>
+    <state world_name='default'>
+      <sim_time>1227 279000000</sim_time>
+      <real_time>178 877315514</real_time>
+      <wall_time>1599231716 265760939</wall_time>
+      <iterations>177385</iterations>
+      <model name='Auditorium'>
+        <pose frame=''>-0.845969 0.855071 1 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='auditorium'>
+          <pose frame=''>-0.845969 0.855071 1 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='drone'>
+        <pose frame=''>0 1 1.0 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='base_link'>
+          <pose frame=''>0 1 1.0 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='ground_plane'>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='nist_maze_wall_240'>
+        <pose frame=''>16.2185 5.29222 0.705064 0 0 -1.51779</pose>
+        <scale>1 1 1</scale>
+        <link name='nist__maze_wall_240_link'>
+          <pose frame=''>16.2185 5.29222 0.705064 0 0 -1.51779</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='nist_maze_wall_240_0'>
+        <pose frame=''>16.2483 4.22326 0.648275 0 0 -1.57335</pose>
+        <scale>1 1 1</scale>
+        <link name='nist__maze_wall_240_link'>
+          <pose frame=''>16.2483 4.22326 0.648275 0 0 -1.57335</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='nist_maze_wall_240_1'>
+        <pose frame=''>16.2268 -7.66713 0.633115 0 0 -1.53985</pose>
+        <scale>1 1 1</scale>
+        <link name='nist__maze_wall_240_link'>
+          <pose frame=''>16.2268 -7.66713 0.633115 0 0 -1.53985</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='nist_maze_wall_240_2'>
+        <pose frame=''>16.1583 -6.82867 0.58896 0 0 -1.50007</pose>
+        <scale>1 1 1</scale>
+        <link name='nist__maze_wall_240_link'>
+          <pose frame=''>16.1583 -6.82867 0.58896 0 0 -1.50007</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='nist_maze_wall_240_3'>
+        <pose frame=''>15.6616 -6.70885 0.596189 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='nist__maze_wall_240_link'>
+          <pose frame=''>15.6616 -6.70885 0.596189 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='nist_maze_wall_240_4'>
+        <pose frame=''>16.2467 5.06995 0.666399 0 0 -1.56677</pose>
+        <scale>1 1 1</scale>
+        <link name='nist__maze_wall_240_link'>
+          <pose frame=''>16.2467 5.06995 0.666399 0 0 -1.56677</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <light name='sun'>
+        <pose frame=''>0 0 10 0 -0 0</pose>
+      </light>
+    </state>
+    <gui fullscreen='0'>
+      <camera name='user_camera'>
+        <pose frame=''>14.7934 7.64399 25.3611 0 1.39779 -2.89573</pose>
+        <view_controller>orbit</view_controller>
+        <projection_type>perspective</projection_type>
+      </camera>
+    </gui>
     <model name='nist_maze_wall_240'>
       <static>1</static>
       <link name='nist__maze_wall_240_link'>
@@ -224,7 +392,7 @@
         <kinematic>0</kinematic>
         <gravity>1</gravity>
       </link>
-      <pose frame=''>6.51795 0.945836 0 0 -0 0</pose>
+      <pose frame=''>19.4447 4.78188 0 0 -0 0</pose>
     </model>
     <model name='nist_maze_wall_240_0'>
       <static>1</static>
@@ -263,7 +431,7 @@
         <kinematic>0</kinematic>
         <gravity>1</gravity>
       </link>
-      <pose frame=''>5.45212 0.938205 0 0 -0 0</pose>
+      <pose frame=''>24.1285 3.87233 0 0 -0 0</pose>
     </model>
     <model name='nist_maze_wall_240_1'>
       <static>1</static>
@@ -302,7 +470,7 @@
         <kinematic>0</kinematic>
         <gravity>1</gravity>
       </link>
-      <pose frame=''>4.31204 0.931453 0 0 -0 0</pose>
+      <pose frame=''>21.1982 -9.65608 0 0 -0 0</pose>
     </model>
     <model name='nist_maze_wall_240_2'>
       <static>1</static>
@@ -341,7 +509,7 @@
         <kinematic>0</kinematic>
         <gravity>1</gravity>
       </link>
-      <pose frame=''>3.20219 0.920848 0 0 -0 0</pose>
+      <pose frame=''>21.1325 -6.13647 0 0 -0 0</pose>
     </model>
     <model name='nist_maze_wall_240_3'>
       <static>1</static>
@@ -380,7 +548,7 @@
         <kinematic>0</kinematic>
         <gravity>1</gravity>
       </link>
-      <pose frame=''>-0.904587 -17.063 0 0 -0 0</pose>
+      <pose frame=''>15.6616 -6.70885 0 0 -0 0</pose>
     </model>
     <model name='nist_maze_wall_240_4'>
       <static>1</static>
@@ -419,152 +587,7 @@
         <kinematic>0</kinematic>
         <gravity>1</gravity>
       </link>
-      <pose frame=''>0.289849 -17.0623 0 0 -0 0</pose>
+      <pose frame=''>17.4849 4.36082 0 0 -0 0</pose>
     </model>
-    <model name='nist_maze_wall_240_5'>
-      <static>1</static>
-      <link name='nist__maze_wall_240_link'>
-        <pose frame=''>0 0 0 0 -0 0</pose>
-        <collision name='collision'>
-          <geometry>
-            <mesh>
-              <uri>model://nist_maze_wall_240/meshes/nist_maze_wall_240.dae</uri>
-              <scale>1 1 1</scale>
-            </mesh>
-          </geometry>
-          <max_contacts>10</max_contacts>
-          <surface>
-            <contact>
-              <ode/>
-            </contact>
-            <bounce/>
-            <friction>
-              <torsional>
-                <ode/>
-              </torsional>
-              <ode/>
-            </friction>
-          </surface>
-        </collision>
-        <visual name='visual'>
-          <geometry>
-            <mesh>
-              <uri>model://nist_maze_wall_240/meshes/nist_maze_wall_240.dae</uri>
-              <scale>1 1 1</scale>
-            </mesh>
-          </geometry>
-        </visual>
-        <self_collide>0</self_collide>
-        <kinematic>0</kinematic>
-        <gravity>1</gravity>
-      </link>
-      <pose frame=''>1.42626 -17.0599 0 0 -0 0</pose>
-    </model>
-    <state world_name='default'>
-      <sim_time>167 131000000</sim_time>
-      <real_time>168 94129561</real_time>
-      <wall_time>1594439115 817389495</wall_time>
-      <iterations>167131</iterations>
-      <model name='drone'>
-        <pose frame=''>11 0 1 0 -0 0</pose>
-        <scale>1 1 1</scale>
-        <link name='base_link'>
-          <pose frame=''>11 0 1 0 -0 0</pose>
-          <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>0 0 0 0 -0 0</acceleration>
-          <wrench>0 0 0 0 -0 0</wrench>
-        </link>
-      </model>
-      <model name='maze'>
-        <pose frame=''>0 0 0 0 -0 0</pose>
-        <scale>1 1 1</scale>
-        <link name='link'>
-          <pose frame=''>0 0 0 0 -0 0</pose>
-          <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>0 0 0 0 -0 0</acceleration>
-          <wrench>0 0 0 0 -0 0</wrench>
-        </link>
-      </model>
-      <model name='nist_maze_wall_240'>
-        <pose frame=''>6.51795 0.945836 0 0 -0 0</pose>
-        <scale>1 1 1</scale>
-        <link name='nist__maze_wall_240_link'>
-          <pose frame=''>6.51795 0.945836 0 0 -0 0</pose>
-          <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>0 0 0 0 -0 0</acceleration>
-          <wrench>0 0 0 0 -0 0</wrench>
-        </link>
-      </model>
-      <model name='nist_maze_wall_240_0'>
-        <pose frame=''>5.45212 0.938205 0 0 -0 0</pose>
-        <scale>1 1 1</scale>
-        <link name='nist__maze_wall_240_link'>
-          <pose frame=''>5.45212 0.938205 0 0 -0 0</pose>
-          <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>0 0 0 0 -0 0</acceleration>
-          <wrench>0 0 0 0 -0 0</wrench>
-        </link>
-      </model>
-      <model name='nist_maze_wall_240_1'>
-        <pose frame=''>4.31204 0.931453 0 0 -0 0</pose>
-        <scale>1 1 1</scale>
-        <link name='nist__maze_wall_240_link'>
-          <pose frame=''>4.31204 0.931453 0 0 -0 0</pose>
-          <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>0 0 0 0 -0 0</acceleration>
-          <wrench>0 0 0 0 -0 0</wrench>
-        </link>
-      </model>
-      <model name='nist_maze_wall_240_2'>
-        <pose frame=''>3.20219 0.920848 0 0 -0 0</pose>
-        <scale>1 1 1</scale>
-        <link name='nist__maze_wall_240_link'>
-          <pose frame=''>3.20219 0.920848 0 0 -0 0</pose>
-          <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>0 0 0 0 -0 0</acceleration>
-          <wrench>0 0 0 0 -0 0</wrench>
-        </link>
-      </model>
-      <model name='nist_maze_wall_240_3'>
-        <pose frame=''>-0.904587 -17.063 0 0 -0 0</pose>
-        <scale>1 1 1</scale>
-        <link name='nist__maze_wall_240_link'>
-          <pose frame=''>-0.904587 -17.063 0 0 -0 0</pose>
-          <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>0 0 0 0 -0 0</acceleration>
-          <wrench>0 0 0 0 -0 0</wrench>
-        </link>
-      </model>
-      <model name='nist_maze_wall_240_4'>
-        <pose frame=''>0.289849 -17.0623 0 0 -0 0</pose>
-        <scale>1 1 1</scale>
-        <link name='nist__maze_wall_240_link'>
-          <pose frame=''>0.289849 -17.0623 0 0 -0 0</pose>
-          <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>0 0 0 0 -0 0</acceleration>
-          <wrench>0 0 0 0 -0 0</wrench>
-        </link>
-      </model>
-      <model name='nist_maze_wall_240_5'>
-        <pose frame=''>1.42626 -17.0599 0 0 -0 0</pose>
-        <scale>1 1 1</scale>
-        <link name='nist__maze_wall_240_link'>
-          <pose frame=''>1.42626 -17.0599 0 0 -0 0</pose>
-          <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>0 0 0 0 -0 0</acceleration>
-          <wrench>0 0 0 0 -0 0</wrench>
-        </link>
-      </model>
-      <light name='sun'>
-        <pose frame=''>0 0 10 0 -0 0</pose>
-      </light>
-    </state>
-    <gui fullscreen='0'>
-      <camera name='user_camera'>
-        <pose frame=''>3.29122 -30.0337 18.9609 0 0.747642 1.64338</pose>
-        <view_controller>orbit</view_controller>
-        <projection_type>perspective</projection_type>
-      </camera>
-    </gui>
   </world>
 </sdf>

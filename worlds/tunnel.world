@@ -1,6 +1,7 @@
 <?xml version="1.0" ?>
 <sdf version="1.5">
   <world name='default'>
+
 <!--  DEFINITION -->
   	<!-- ===========================GROUND PLANE====================================== -->
     <model name='ground_plane'>
@@ -196,7 +197,7 @@
 	      <geometry>
 	        <mesh>
 	          <uri>file://models/drone/quadrotor_4.dae</uri>
-            <scale>1.0 1.0 1.0</scale>
+            <scale>0.0 0.0 0.0</scale>
 	        </mesh>
 
 	      </geometry>

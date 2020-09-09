@@ -1,8 +1,8 @@
 <sdf version='1.6'>
-  <world name='default'>    
-    <light name="sun" type="directional">
+  <world name='default'>
+    <light name='sun' type='directional'>
       <cast_shadows>1</cast_shadows>
-      <pose>0 0 10 0 -0 0</pose>
+      <pose frame=''>0 0 10 0 -0 0</pose>
       <diffuse>0.8 0.8 0.8 1</diffuse>
       <specular>0.2 0.2 0.2 1</specular>
       <attenuation>
@@ -24,7 +24,7 @@
         <xyzOffsets>0 0 0</xyzOffsets>
         <rpyOffsets>0 0 0</rpyOffsets>
       </plugin>
-      <pose frame=''>-10 10 1 0 -0 0</pose>
+      <pose frame=''>7 6 1 0 -0 0</pose>
       <link name='base_link'>
         <inertial>
           <mass>1.477</mass>
@@ -45,7 +45,7 @@
           <geometry>
             <mesh>
               <uri>model://drone/meshes/quadrotor_4.dae</uri>
-              <scale>0.5 0.5 0.5</scale>
+              <scale>1 1 1</scale>
             </mesh>
           </geometry>
         </visual>
@@ -53,7 +53,7 @@
           <geometry>
             <mesh>
               <uri>model://drone/meshes/quadrotor_4.dae</uri>
-              <scale>0.01 0.01 0.01</scale>
+              <scale>1 1 1</scale>
             </mesh>
           </geometry>
           <max_contacts>10</max_contacts>
@@ -132,7 +132,7 @@
           <geometry>
             <mesh>
               <uri>model://apartment1/meshes/model.dae</uri>
-              <scale>0 0 0 </scale>
+              <scale>0 0 0</scale>
             </mesh>
           </geometry>
           <max_contacts>10</max_contacts>
@@ -271,13 +271,13 @@
       <pose frame=''>-5.58216 -5.63133 0 0 -0 0</pose>
     </model>
     <state world_name='default'>
-      <sim_time>129 270000000</sim_time>
-      <real_time>129 924066172</real_time>
-      <wall_time>1593833790 224467203</wall_time>
-      <iterations>25854</iterations>
+      <sim_time>213 960000000</sim_time>
+      <real_time>84 756253449</real_time>
+      <wall_time>1597806883 737090312</wall_time>
+      <iterations>16938</iterations>
       <model name='apartment'>
         <pose frame=''>0 0 0 0 -0 0</pose>
-        <scale>1 1 1</scale>
+        <scale>1.5 1.5 1</scale>
         <link name='link'>
           <pose frame=''>0 0 0 0 -0 0</pose>
           <velocity>0 0 0 0 -0 0</velocity>
@@ -286,10 +286,10 @@
         </link>
       </model>
       <model name='drone'>
-        <pose frame=''>-10 10 1 0 -0 0</pose>
+        <pose frame=''>7 6 1 0 -0 0</pose>
         <scale>1 1 1</scale>
         <link name='base_link'>
-          <pose frame=''>-10 10 1 0 -0 0</pose>
+          <pose frame=''>7 6 1 0 -0 0</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 0 0 -0 0</acceleration>
           <wrench>0 0 0 0 -0 0</wrench>
@@ -306,10 +306,10 @@
         </link>
       </model>
       <model name='nist_maze_wall_240'>
-        <pose frame=''>-5.60716 -5.45865 0 0 -0 0</pose>
+        <pose frame=''>-5.62462 -5.42237 0 0 -0 0</pose>
         <scale>1 1 1</scale>
         <link name='nist__maze_wall_240_link'>
-          <pose frame=''>-5.60716 -5.45865 0 0 -0 0</pose>
+          <pose frame=''>-5.62462 -5.42237 0 0 -0 0</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 0 0 -0 0</acceleration>
           <wrench>0 0 0 0 -0 0</wrench>
@@ -505,6 +505,9 @@
           <wrench>0 0 0 0 -0 0</wrench>
         </link>
       </model>
+      <light name='sun'>
+        <pose frame=''>0 0 10 0 -0 0</pose>
+      </light>
     </state>
     <model name='nist_maze_wall_240_0'>
       <static>1</static>
@@ -1249,7 +1252,7 @@
     </model>
     <gui fullscreen='0'>
       <camera name='user_camera'>
-        <pose frame=''>2.18454 -14.139 87.6509 0 1.3178 1.497</pose>
+        <pose frame=''>-4.67748 -9.35822 2.75582 0 0.541797 1.64895</pose>
         <view_controller>orbit</view_controller>
         <projection_type>perspective</projection_type>
       </camera>

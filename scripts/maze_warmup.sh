@@ -2,9 +2,9 @@
 rostopic pub -1 /gazebo/set_model_state gazebo_msgs/ModelState "model_name: 'drone'
 pose:
   position:
-    x: 0
+    x: 11
     y: 0
-    z: 1.0
+    z: 0.3
   orientation:
     x: 0.0
     y: 0.0
@@ -24,9 +24,9 @@ reference_frame: ''"
 rostopic pub -1 /gazebo/set_model_state gazebo_msgs/ModelState "model_name: 'drone'
 pose:
   position:
-    x: 0
+    x: 11
     y: 0
-    z: 1.0
+    z: 0.3
   orientation:
     x: 0.0
     y: 0.0
