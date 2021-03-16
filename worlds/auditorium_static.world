@@ -26,9 +26,9 @@
           </inertia>
         </inertial>
         <visual name='visual'>
-          <material>
+<!--           <material>
             <diffuse>1 0 0 1</diffuse>
-          </material>
+          </material> -->
           <geometry>
             <mesh>
               <uri>model://drone/meshes/quadrotor_4.dae</uri>

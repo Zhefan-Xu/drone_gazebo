@@ -356,3 +356,6 @@ set_target_properties( keyboard_control
 
 add_executable(transform_broadcaster src/tfbc.cpp)
 target_link_libraries(transform_broadcaster ${catkin_LIBRARIES})
+
+add_executable(transform_broadcaster_realsense src/tfbc_realsense.cpp)
+target_link_libraries(transform_broadcaster_realsense ${catkin_LIBRARIES})

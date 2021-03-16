@@ -1,7 +1,167 @@
 <?xml version="1.0" ?>
 <sdf version="1.5">
-	<world name="dynamic tunnel">
-		<model name='drone'>
+  <world name="dynamic tunnel">
+
+      <physics type='ode'>
+      <max_step_size>0.005</max_step_size>
+      <real_time_factor>1</real_time_factor>
+      <real_time_update_rate>200</real_time_update_rate>
+    </physics>
+
+  <model name='person_walking1'>
+      <link name='link'>
+        <inertial>
+          <pose frame=''>0 0 0.95 0 -0 0</pose>
+          <mass>80</mass>
+          <inertia>
+            <ixx>27.82</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>24.88</iyy>
+            <iyz>0</iyz>
+            <izz>4.57</izz>
+          </inertia>
+        </inertial>
+        <collision name='bottom'>
+          <pose frame=''>0 0 0.01 0 -0 0</pose>
+          <geometry>
+            <box>
+              <size>0.35 0.75 0.02</size>
+            </box>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <collision name='person'>
+          <pose frame=''>0 0 -0.02 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <uri>model://person_walking/meshes/walking.dae</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <pose frame=''>0 0 -0.02 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <uri>model://person_walking/meshes/walking.dae</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <kinematic>0</kinematic>
+        <gravity>0</gravity>
+      </link>
+      <pose frame=''>0 0 0 0 -0 0</pose>
+    </model>
+
+
+<model name='person_walking2'>
+      <link name='link'>
+        <inertial>
+          <pose frame=''>0 0 0.95 0 -0 0</pose>
+          <mass>80</mass>
+          <inertia>
+            <ixx>27.82</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>24.88</iyy>
+            <iyz>0</iyz>
+            <izz>4.57</izz>
+          </inertia>
+        </inertial>
+        <collision name='bottom'>
+          <pose frame=''>0 0 0.01 0 -0 0</pose>
+          <geometry>
+            <box>
+              <size>0.35 0.75 0.02</size>
+            </box>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <collision name='person'>
+          <pose frame=''>0 0 -0.02 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <uri>model://person_walking/meshes/walking.dae</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <pose frame=''>0 0 -0.02 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <uri>model://person_walking/meshes/walking.dae</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <kinematic>0</kinematic>
+        <gravity>0</gravity>
+      </link>
+      <pose frame=''>-2.29866 6.46672 0 0 -0 0</pose>
+    </model>
+
+
+
+
+
+
+    
+    <model name='drone'>
       <plugin name='p3d_base_controller' filename='libgazebo_ros_p3d.so'>
         <alwaysOn>true</alwaysOn>
         <updateRate>50.0</updateRate>
@@ -27,9 +187,9 @@
           </inertia>
         </inertial>
         <visual name='visual'>
-          <material>
+<!--           <material>
             <diffuse>1 0 0 1</diffuse>
-          </material>
+          </material> -->
           <geometry>
             <mesh>
               <uri>model://drone/meshes/quadrotor_4.dae</uri>
@@ -128,454 +288,454 @@
       <direction>-0.5 0.1 -0.9</direction>
     </light>
 
-	 	 <!-- tunnel -->
-	  	<model name='tunnel'>
-	      <static>1</static>
-	      <link name='tunnel_1_link'>
-	        <collision name='collision'>
-	          <geometry>
-	            <mesh>
-	              <scale>0 0 0.01</scale>
-	              <uri>model://tunnel_1/meshes/model.dae</uri>
-	            </mesh>
-	          </geometry>
-	          <max_contacts>10</max_contacts>
-	          <surface>
-	            <contact>
-	              <ode/>
-	            </contact>
-	            <bounce/>
-	            <friction>
-	              <torsional>
-	                <ode/>
-	              </torsional>
-	              <ode/>
-	            </friction>
-	          </surface>
-	        </collision>
-	        <visual name='visual'>
-	          <geometry>
-	            <mesh>
-	              <!-- <scale>2 2 2</scale> -->
-	              <scale>2 2 2</scale>
-	              <uri>model://tunnel_1/meshes/model.dae</uri>
-	              <!-- <uri>file://models/tunnel_3/meshes/model.dae</uri> -->
-	            </mesh>
-	          </geometry>
-	        </visual>
-	        <self_collide>0</self_collide>
-	        <enable_wind>0</enable_wind>
-	        <kinematic>0</kinematic>
-	      </link>
-	      <pose frame=''>0.025454 0.015104 0 0 -0 0</pose>
-      	</model>
+     <!-- tunnel -->
+      <model name='tunnel'>
+        <static>1</static>
+        <link name='tunnel_1_link'>
+          <collision name='collision'>
+            <geometry>
+              <mesh>
+                <scale>0 0 0.01</scale>
+                <uri>model://tunnel_1/meshes/model.dae</uri>
+              </mesh>
+            </geometry>
+            <max_contacts>10</max_contacts>
+            <surface>
+              <contact>
+                <ode/>
+              </contact>
+              <bounce/>
+              <friction>
+                <torsional>
+                  <ode/>
+                </torsional>
+                <ode/>
+              </friction>
+            </surface>
+          </collision>
+          <visual name='visual'>
+            <geometry>
+              <mesh>
+                <!-- <scale>2 2 2</scale> -->
+                <scale>2 2 2</scale>
+                <uri>model://tunnel_1/meshes/model.dae</uri>
+                <!-- <uri>file://models/tunnel_3/meshes/model.dae</uri> -->
+              </mesh>
+            </geometry>
+          </visual>
+          <self_collide>0</self_collide>
+          <enable_wind>0</enable_wind>
+          <kinematic>0</kinematic>
+        </link>
+        <pose frame=''>0.025454 0.015104 0 0 -0 0</pose>
+        </model>
 
 
-      	<model name='asphalt_plane_1'>
-	      <static>1</static>
-	      <link name='link'>
-	        <collision name='collision'>
-	          <geometry>
-	            <box>
-	              <size>50 50 0.1</size>
-	            </box>
-	          </geometry>
-	          <max_contacts>10</max_contacts>
-	          <surface>
-	            <contact>
-	              <ode/>
-	            </contact>
-	            <bounce/>
-	            <friction>
-	              <torsional>
-	                <ode/>
-	              </torsional>
-	              <ode/>
-	            </friction>
-	          </surface>
-	        </collision>
-	        <visual name='visual'>
-	          <cast_shadows>0</cast_shadows>
-	          <geometry>
-	            <box>
-	              <size>50 50 0.1</size>
-	            </box>
-	          </geometry>
-	          <material>
-	            <script>
-	              <uri>model://asphalt_plane/materials/scripts</uri>
-	              <uri>model://asphalt_plane/materials/textures</uri>
-	              <name>vrc/asphalt</name>
-	            </script>
-	          </material>
-	        </visual>
-	        <self_collide>0</self_collide>
-	        <enable_wind>0</enable_wind>
-	        <kinematic>0</kinematic>
-	      </link>
-	      <pose frame=''>0.597976 6.1071 0 0 -0 0</pose>
-      	</model>
+        <model name='asphalt_plane_1'>
+        <static>1</static>
+        <link name='link'>
+          <collision name='collision'>
+            <geometry>
+              <box>
+                <size>50 50 0.1</size>
+              </box>
+            </geometry>
+            <max_contacts>10</max_contacts>
+            <surface>
+              <contact>
+                <ode/>
+              </contact>
+              <bounce/>
+              <friction>
+                <torsional>
+                  <ode/>
+                </torsional>
+                <ode/>
+              </friction>
+            </surface>
+          </collision>
+          <visual name='visual'>
+            <cast_shadows>0</cast_shadows>
+            <geometry>
+              <box>
+                <size>50 50 0.1</size>
+              </box>
+            </geometry>
+            <material>
+              <script>
+                <uri>model://asphalt_plane/materials/scripts</uri>
+                <uri>model://asphalt_plane/materials/textures</uri>
+                <name>vrc/asphalt</name>
+              </script>
+            </material>
+          </visual>
+          <self_collide>0</self_collide>
+          <enable_wind>0</enable_wind>
+          <kinematic>0</kinematic>
+        </link>
+        <pose frame=''>0.597976 6.1071 0 0 -0 0</pose>
+        </model>
 
-	    <model name='asphalt_plane_2'>
-	      <static>1</static>
-	      <link name='link'>
-	        <collision name='collision'>
-	          <geometry>
-	            <box>
-	              <size>50 50 0.1</size>
-	            </box>
-	          </geometry>
-	          <max_contacts>10</max_contacts>
-	          <surface>
-	            <contact>
-	              <ode/>
-	            </contact>
-	            <bounce/>
-	            <friction>
-	              <torsional>
-	                <ode/>
-	              </torsional>
-	              <ode/>
-	            </friction>
-	          </surface>
-	        </collision>
-	        <visual name='visual'>
-	          <cast_shadows>0</cast_shadows>
-	          <geometry>
-	            <box>
-	              <size>50 50 0.1</size>
-	            </box>
-	          </geometry>
-	          <material>
-	            <script>
-	              <uri>model://asphalt_plane/materials/scripts</uri>
-	              <uri>model://asphalt_plane/materials/textures</uri>
-	              <name>vrc/asphalt</name>
-	            </script>
-	          </material>
-	        </visual>
-	        <self_collide>0</self_collide>
-	        <enable_wind>0</enable_wind>
-	        <kinematic>0</kinematic>
-	      </link>
-	      <pose frame=''>-0.378988 25.5648 0 0 -0 0</pose>
-	    </model>
+      <model name='asphalt_plane_2'>
+        <static>1</static>
+        <link name='link'>
+          <collision name='collision'>
+            <geometry>
+              <box>
+                <size>50 50 0.1</size>
+              </box>
+            </geometry>
+            <max_contacts>10</max_contacts>
+            <surface>
+              <contact>
+                <ode/>
+              </contact>
+              <bounce/>
+              <friction>
+                <torsional>
+                  <ode/>
+                </torsional>
+                <ode/>
+              </friction>
+            </surface>
+          </collision>
+          <visual name='visual'>
+            <cast_shadows>0</cast_shadows>
+            <geometry>
+              <box>
+                <size>50 50 0.1</size>
+              </box>
+            </geometry>
+            <material>
+              <script>
+                <uri>model://asphalt_plane/materials/scripts</uri>
+                <uri>model://asphalt_plane/materials/textures</uri>
+                <name>vrc/asphalt</name>
+              </script>
+            </material>
+          </visual>
+          <self_collide>0</self_collide>
+          <enable_wind>0</enable_wind>
+          <kinematic>0</kinematic>
+        </link>
+        <pose frame=''>-0.378988 25.5648 0 0 -0 0</pose>
+      </model>
 
-     	<model name='rock_1'>
-	      <static>1</static>
-	      <link name='rock_1__link'>
-	        <collision name='collision'>
-	          <geometry>
-	            <mesh>
-	              <scale>3 3 3</scale>
-	              <uri>model://rock_1/meshes/model.dae</uri>
-	            </mesh>
-	          </geometry>
-	          <max_contacts>10</max_contacts>
-	          <surface>
-	            <contact>
-	              <ode/>
-	            </contact>
-	            <bounce/>
-	            <friction>
-	              <torsional>
-	                <ode/>
-	              </torsional>
-	              <ode/>
-	            </friction>
-	          </surface>
-	        </collision>
-	        <visual name='visual'>
-	          <geometry>
-	            <mesh>
-	              <scale>3 3 3</scale>
-	              <uri>model://rock_1/meshes/model.dae</uri>
-	            </mesh>
-	          </geometry>
-	        </visual>
-	        <self_collide>0</self_collide>
-	        <enable_wind>0</enable_wind>
-	        <kinematic>0</kinematic>
-	      </link>
-	      <pose frame=''>-11 55 0 0 0 -1.571</pose>
-	    </model>
+      <model name='rock_1'>
+        <static>1</static>
+        <link name='rock_1__link'>
+          <collision name='collision'>
+            <geometry>
+              <mesh>
+                <scale>3 3 3</scale>
+                <uri>model://rock_1/meshes/model.dae</uri>
+              </mesh>
+            </geometry>
+            <max_contacts>10</max_contacts>
+            <surface>
+              <contact>
+                <ode/>
+              </contact>
+              <bounce/>
+              <friction>
+                <torsional>
+                  <ode/>
+                </torsional>
+                <ode/>
+              </friction>
+            </surface>
+          </collision>
+          <visual name='visual'>
+            <geometry>
+              <mesh>
+                <scale>3 3 3</scale>
+                <uri>model://rock_1/meshes/model.dae</uri>
+              </mesh>
+            </geometry>
+          </visual>
+          <self_collide>0</self_collide>
+          <enable_wind>0</enable_wind>
+          <kinematic>0</kinematic>
+        </link>
+        <pose frame=''>-11 55 0 0 0 -1.571</pose>
+      </model>
 
-	    <model name='rock_2'>
-	      <static>1</static>
-	      <link name='rock_2_link'>
-	        <collision name='collision'>
-	          <geometry>
-	            <mesh>
-	              <uri>model://rock_2/meshes/model.dae</uri>
-	            </mesh>
-	          </geometry>
-	          <max_contacts>10</max_contacts>
-	          <surface>
-	            <contact>
-	              <ode/>
-	            </contact>
-	            <bounce/>
-	            <friction>
-	              <torsional>
-	                <ode/>
-	              </torsional>
-	              <ode/>
-	            </friction>
-	          </surface>
-	        </collision>
-	        <visual name='visual'>
-	          <geometry>
-	            <mesh>
-	              <uri>model://rock_2/meshes/model.dae</uri>
-	            </mesh>
-	          </geometry>
-	        </visual>
-	        <self_collide>0</self_collide>
-	        <enable_wind>0</enable_wind>
-	        <kinematic>0</kinematic>
-	      </link>
-	      <pose frame=''>-2.7737 60 0 0 -0 0</pose>
-	    </model>
-
-
-		<model name='rock_3'>
-	      <static>1</static>
-	      <link name='rock_3_link'>
-	        <collision name='collision'>
-	          <geometry>
-	            <mesh>
-	              <scale>5 5 5</scale>
-	              <uri>model://rock_3/meshes/model.dae</uri>
-	            </mesh>
-	          </geometry>
-	          <max_contacts>10</max_contacts>
-	          <surface>
-	            <contact>
-	              <ode/>
-	            </contact>
-	            <bounce/>
-	            <friction>
-	              <torsional>
-	                <ode/>
-	              </torsional>
-	              <ode/>
-	            </friction>
-	          </surface>
-	        </collision>
-	        <visual name='visual'>
-	          <geometry>
-	            <mesh>
-	              <scale>5 5 5</scale>
-	              <uri>model://rock_3/meshes/model.dae</uri>
-	            </mesh>
-	          </geometry>
-	        </visual>
-	        <self_collide>0</self_collide>
-	        <enable_wind>0</enable_wind>
-	        <kinematic>0</kinematic>
-	      </link>
-	      <pose frame=''>-10.7349 55 0 0 -0 0</pose>
-	    </model>
-
-	    <model name='rock_4'>
-	      <static>1</static>
-	      <link name='rock_4_link'>
-	        <collision name='collision'>
-	          <geometry>
-	            <mesh>
-	              <uri>model://rock_4/meshes/model.dae</uri>
-	            </mesh>
-	          </geometry>
-	          <max_contacts>10</max_contacts>
-	          <surface>
-	            <contact>
-	              <ode/>
-	            </contact>
-	            <bounce/>
-	            <friction>
-	              <torsional>
-	                <ode/>
-	              </torsional>
-	              <ode/>
-	            </friction>
-	          </surface>
-	        </collision>
-	        <visual name='visual'>
-	          <geometry>
-	            <mesh>
-	              <uri>model://rock_4/meshes/model.dae</uri>
-	            </mesh>
-	          </geometry>
-	        </visual>
-	        <self_collide>0</self_collide>
-	        <enable_wind>0</enable_wind>
-	        <kinematic>0</kinematic>
-	      </link>
-	      <pose frame=''>1.88841 60 0 0 -0 0</pose>
-	    </model>
+      <model name='rock_2'>
+        <static>1</static>
+        <link name='rock_2_link'>
+          <collision name='collision'>
+            <geometry>
+              <mesh>
+                <uri>model://rock_2/meshes/model.dae</uri>
+              </mesh>
+            </geometry>
+            <max_contacts>10</max_contacts>
+            <surface>
+              <contact>
+                <ode/>
+              </contact>
+              <bounce/>
+              <friction>
+                <torsional>
+                  <ode/>
+                </torsional>
+                <ode/>
+              </friction>
+            </surface>
+          </collision>
+          <visual name='visual'>
+            <geometry>
+              <mesh>
+                <uri>model://rock_2/meshes/model.dae</uri>
+              </mesh>
+            </geometry>
+          </visual>
+          <self_collide>0</self_collide>
+          <enable_wind>0</enable_wind>
+          <kinematic>0</kinematic>
+        </link>
+        <pose frame=''>-2.7737 60 0 0 -0 0</pose>
+      </model>
 
 
-<!-- 		<model name='suv1'>
-	      <static>1</static>
-	      <link name='link'>
-	        <collision name='collision'>
-	          <pose frame=''>0 0 0 0 0 -1.5708</pose>
-	          <geometry>
-	            <mesh>
-	              <scale>0.045 0.045 0.045</scale>
-	              <uri>model://suv/meshes/suv.obj</uri>
-	            </mesh>
-	          </geometry>
-	          <max_contacts>10</max_contacts>
-	          <surface>
-	            <contact>
-	              <ode/>
-	            </contact>
-	            <bounce/>
-	            <friction>
-	              <torsional>
-	                <ode/>
-	              </torsional>
-	              <ode/>
-	            </friction>
-	          </surface>
-	        </collision>
-	        <visual name='visual'>
-	          <pose frame=''>0 0 0 0 0 -1.5708</pose>
-	          <geometry>
-	            <mesh>
-	              <scale>0.045 0.045 0.045</scale>
-	              <uri>model://suv/meshes/suv.obj</uri>
-	            </mesh>
-	          </geometry>
-	        </visual>
-	        <self_collide>0</self_collide>
-	        <enable_wind>0</enable_wind>
-	        <kinematic>0</kinematic>
-	      </link>
-	      <pose frame=''>-1 6 0 0 -0 1.5708</pose>
-	    </model> -->
+    <model name='rock_3'>
+        <static>1</static>
+        <link name='rock_3_link'>
+          <collision name='collision'>
+            <geometry>
+              <mesh>
+                <scale>5 5 5</scale>
+                <uri>model://rock_3/meshes/model.dae</uri>
+              </mesh>
+            </geometry>
+            <max_contacts>10</max_contacts>
+            <surface>
+              <contact>
+                <ode/>
+              </contact>
+              <bounce/>
+              <friction>
+                <torsional>
+                  <ode/>
+                </torsional>
+                <ode/>
+              </friction>
+            </surface>
+          </collision>
+          <visual name='visual'>
+            <geometry>
+              <mesh>
+                <scale>5 5 5</scale>
+                <uri>model://rock_3/meshes/model.dae</uri>
+              </mesh>
+            </geometry>
+          </visual>
+          <self_collide>0</self_collide>
+          <enable_wind>0</enable_wind>
+          <kinematic>0</kinematic>
+        </link>
+        <pose frame=''>-10.7349 55 0 0 -0 0</pose>
+      </model>
 
-		<model name='excavator'>
-	      <static>1</static>
-	      <link name='excavator_link'>
-	        <collision name='collision'>
-	          <geometry>
-	            <mesh>
-	              <scale>1.5 1.5 1.5</scale>
-	              <uri>model://excavator/meshes/model.dae</uri>
-	            </mesh>
-	          </geometry>
-	          <max_contacts>10</max_contacts>
-	          <surface>
-	            <contact>
-	              <ode/>
-	            </contact>
-	            <bounce/>
-	            <friction>
-	              <torsional>
-	                <ode/>
-	              </torsional>
-	              <ode/>
-	            </friction>
-	          </surface>
-	        </collision>
-	        <visual name='visual'>
-	          <geometry>
-	            <mesh>
-	              <scale>1.5 1.5 1.5</scale>
-	              <uri>model://excavator/meshes/model.dae</uri>
-	            </mesh>
-	          </geometry>
-	        </visual>
-	        <self_collide>0</self_collide>
-	        <enable_wind>0</enable_wind>
-	        <kinematic>0</kinematic>
-	      </link>
-	      <pose frame=''>2.2 10 0 0 -0 0</pose>
-	    </model>
-
-	    <model name='excavator'>
-	      <static>1</static>
-	      <link name='excavator_link'>
-	        <collision name='collision'>
-	          <geometry>
-	            <mesh>
-	              <scale>1.5 1.5 1.5</scale>
-	              <uri>model://excavator/meshes/model.dae</uri>
-	            </mesh>
-	          </geometry>
-	          <max_contacts>10</max_contacts>
-	          <surface>
-	            <contact>
-	              <ode/>
-	            </contact>
-	            <bounce/>
-	            <friction>
-	              <torsional>
-	                <ode/>
-	              </torsional>
-	              <ode/>
-	            </friction>
-	          </surface>
-	        </collision>
-	        <visual name='visual'>
-	          <geometry>
-	            <mesh>
-	              <scale>1.5 1.5 1.5</scale>
-	              <uri>model://excavator/meshes/model.dae</uri>
-	            </mesh>
-	          </geometry>
-	        </visual>
-	        <self_collide>0</self_collide>
-	        <enable_wind>0</enable_wind>
-	        <kinematic>0</kinematic>
-	      </link>
-	      <pose frame=''>-1.1 20 0 0 -0 0</pose>
-	    </model>
+      <model name='rock_4'>
+        <static>1</static>
+        <link name='rock_4_link'>
+          <collision name='collision'>
+            <geometry>
+              <mesh>
+                <uri>model://rock_4/meshes/model.dae</uri>
+              </mesh>
+            </geometry>
+            <max_contacts>10</max_contacts>
+            <surface>
+              <contact>
+                <ode/>
+              </contact>
+              <bounce/>
+              <friction>
+                <torsional>
+                  <ode/>
+                </torsional>
+                <ode/>
+              </friction>
+            </surface>
+          </collision>
+          <visual name='visual'>
+            <geometry>
+              <mesh>
+                <uri>model://rock_4/meshes/model.dae</uri>
+              </mesh>
+            </geometry>
+          </visual>
+          <self_collide>0</self_collide>
+          <enable_wind>0</enable_wind>
+          <kinematic>0</kinematic>
+        </link>
+        <pose frame=''>1.88841 60 0 0 -0 0</pose>
+      </model>
 
 
-		<light name='user_point_light_0' type='point'>
-	      <pose frame=''>0 3 6.2 0 -0 0</pose>
-	      <diffuse>0.5 0.5 0.5 1</diffuse>
-	      <specular>0.1 0.1 0.1 1</specular>
-	      <attenuation>
-	        <range>20</range>
-	        <constant>0.5</constant>
-	        <linear>0.01</linear>
-	        <quadratic>0.001</quadratic>
-	      </attenuation>
-	      <cast_shadows>0</cast_shadows>
-	      <direction>0 0 -1</direction>
-	    </light>
+<!--    <model name='suv1'>
+        <static>1</static>
+        <link name='link'>
+          <collision name='collision'>
+            <pose frame=''>0 0 0 0 0 -1.5708</pose>
+            <geometry>
+              <mesh>
+                <scale>0.045 0.045 0.045</scale>
+                <uri>model://suv/meshes/suv.obj</uri>
+              </mesh>
+            </geometry>
+            <max_contacts>10</max_contacts>
+            <surface>
+              <contact>
+                <ode/>
+              </contact>
+              <bounce/>
+              <friction>
+                <torsional>
+                  <ode/>
+                </torsional>
+                <ode/>
+              </friction>
+            </surface>
+          </collision>
+          <visual name='visual'>
+            <pose frame=''>0 0 0 0 0 -1.5708</pose>
+            <geometry>
+              <mesh>
+                <scale>0.045 0.045 0.045</scale>
+                <uri>model://suv/meshes/suv.obj</uri>
+              </mesh>
+            </geometry>
+          </visual>
+          <self_collide>0</self_collide>
+          <enable_wind>0</enable_wind>
+          <kinematic>0</kinematic>
+        </link>
+        <pose frame=''>-1 6 0 0 -0 1.5708</pose>
+      </model> -->
 
-	    <light name='user_point_light_1' type='point'>
-	      <pose frame=''>0 8 6.2 0 -0 0</pose>
-	      <diffuse>0.5 0.5 0.5 1</diffuse>
-	      <specular>0.1 0.1 0.1 1</specular>
-	      <attenuation>
-	        <range>20</range>
-	        <constant>0.5</constant>
-	        <linear>0.01</linear>
-	        <quadratic>0.001</quadratic>
-	      </attenuation>
-	      <cast_shadows>0</cast_shadows>
-	      <direction>0 0 -1</direction>
-	    </light>
+    <model name='excavator'>
+        <static>1</static>
+        <link name='excavator_link'>
+          <collision name='collision'>
+            <geometry>
+              <mesh>
+                <scale>1.5 1.5 1.5</scale>
+                <uri>model://excavator/meshes/model.dae</uri>
+              </mesh>
+            </geometry>
+            <max_contacts>10</max_contacts>
+            <surface>
+              <contact>
+                <ode/>
+              </contact>
+              <bounce/>
+              <friction>
+                <torsional>
+                  <ode/>
+                </torsional>
+                <ode/>
+              </friction>
+            </surface>
+          </collision>
+          <visual name='visual'>
+            <geometry>
+              <mesh>
+                <scale>1.5 1.5 1.5</scale>
+                <uri>model://excavator/meshes/model.dae</uri>
+              </mesh>
+            </geometry>
+          </visual>
+          <self_collide>0</self_collide>
+          <enable_wind>0</enable_wind>
+          <kinematic>0</kinematic>
+        </link>
+        <pose frame=''>2.2 10 0 0 -0 0</pose>
+      </model>
 
-	    <light name='user_point_light_2' type='point'>
-	      <pose frame=''>0 13 6.2 0 -0 0</pose>
-	      <diffuse>0.5 0.5 0.5 1</diffuse>
-	      <specular>0.1 0.1 0.1 1</specular>
-	      <attenuation>
-	        <range>20</range>
-	        <constant>0.5</constant>
-	        <linear>0.01</linear>
-	        <quadratic>0.001</quadratic>
-	      </attenuation>
-	      <cast_shadows>0</cast_shadows>
-	      <direction>0 0 -1</direction>
-	    </light>
+      <model name='excavator'>
+        <static>1</static>
+        <link name='excavator_link'>
+          <collision name='collision'>
+            <geometry>
+              <mesh>
+                <scale>1.5 1.5 1.5</scale>
+                <uri>model://excavator/meshes/model.dae</uri>
+              </mesh>
+            </geometry>
+            <max_contacts>10</max_contacts>
+            <surface>
+              <contact>
+                <ode/>
+              </contact>
+              <bounce/>
+              <friction>
+                <torsional>
+                  <ode/>
+                </torsional>
+                <ode/>
+              </friction>
+            </surface>
+          </collision>
+          <visual name='visual'>
+            <geometry>
+              <mesh>
+                <scale>1.5 1.5 1.5</scale>
+                <uri>model://excavator/meshes/model.dae</uri>
+              </mesh>
+            </geometry>
+          </visual>
+          <self_collide>0</self_collide>
+          <enable_wind>0</enable_wind>
+          <kinematic>0</kinematic>
+        </link>
+        <pose frame=''>-1.1 20 0 0 -0 0</pose>
+      </model>
 
-	</world>
+
+    <light name='user_point_light_0' type='point'>
+        <pose frame=''>0 3 6.2 0 -0 0</pose>
+        <diffuse>0.5 0.5 0.5 1</diffuse>
+        <specular>0.1 0.1 0.1 1</specular>
+        <attenuation>
+          <range>20</range>
+          <constant>0.5</constant>
+          <linear>0.01</linear>
+          <quadratic>0.001</quadratic>
+        </attenuation>
+        <cast_shadows>0</cast_shadows>
+        <direction>0 0 -1</direction>
+      </light>
+
+      <light name='user_point_light_1' type='point'>
+        <pose frame=''>0 8 6.2 0 -0 0</pose>
+        <diffuse>0.5 0.5 0.5 1</diffuse>
+        <specular>0.1 0.1 0.1 1</specular>
+        <attenuation>
+          <range>20</range>
+          <constant>0.5</constant>
+          <linear>0.01</linear>
+          <quadratic>0.001</quadratic>
+        </attenuation>
+        <cast_shadows>0</cast_shadows>
+        <direction>0 0 -1</direction>
+      </light>
+
+      <light name='user_point_light_2' type='point'>
+        <pose frame=''>0 13 6.2 0 -0 0</pose>
+        <diffuse>0.5 0.5 0.5 1</diffuse>
+        <specular>0.1 0.1 0.1 1</specular>
+        <attenuation>
+          <range>20</range>
+          <constant>0.5</constant>
+          <linear>0.01</linear>
+          <quadratic>0.001</quadratic>
+        </attenuation>
+        <cast_shadows>0</cast_shadows>
+        <direction>0 0 -1</direction>
+      </light>
+
+  </world>
 </sdf>
