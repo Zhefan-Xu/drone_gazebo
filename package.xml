@@ -2,7 +2,7 @@
 <package>
   <name>drone_gazebo</name>
   <version>0.0.0</version>
-  <description>The sjtu_drone package</description>
+  <description>The drone simulation environments</description>
  
   <maintainer email="zhefanx@andrew.cmu.edu">Zhefan</maintainer>
 
