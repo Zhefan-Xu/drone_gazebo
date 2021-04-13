@@ -5,7 +5,7 @@ Enviroments for drone simulations.
 First, open ```*.launch``` which is the environemnt you want to use. Then, find the corresponding ```*.world``` in ```/world``` (Filename is in the launch file).
 
 
-Second, change the corresponding ```pose```` tag in the ```*.world``` for ```drone```. For example:
+Second, change the corresponding ```pose``` tag in the ```*.world``` for ```drone```. For example:
 ```
  <model name='drone'>
  
