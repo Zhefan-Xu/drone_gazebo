@@ -1,6 +1,13 @@
 # drone_gazebo
 Enviroments for drone simulations.
 
+### Prerequisite
+Please download this [repo](https://github.com/osrf/gazebo_models)
+```
+export GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH: /path/to/model/directory
+export GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH: /path/to/drone_gazebo/models
+```
+
 ### How to change start locations
 First, open ```*.launch``` which is the environemnt you want to use. Then, find the corresponding ```*.world``` in ```/world``` (Filename is in the launch file).
 
