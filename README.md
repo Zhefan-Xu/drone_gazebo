@@ -2,7 +2,7 @@
 Enviroments for drone simulations.
 
 ### Prerequisite
-Please download this [repo](https://github.com/osrf/gazebo_models)
+Please download this [repo](https://github.com/osrf/gazebo_models) for models:
 ```
 export GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH: /path/to/model/directory
 export GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH: /path/to/drone_gazebo/models
